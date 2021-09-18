@@ -1,8 +1,6 @@
 package com.company.springbootsecurityjwt.controller;
 
 import com.company.springbootsecurityjwt.model.AuthenticationRequest;
-
-
 import com.company.springbootsecurityjwt.model.AuthenticationResponse;
 import com.company.springbootsecurityjwt.service.JwtUtil;
 import com.company.springbootsecurityjwt.service.MyUserDetailsService;
@@ -42,7 +40,7 @@ public class HomeResource {
             throw new Exception("Username or password is incorrect",e);
         }
 
-        UserDetails userDetails = myUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        UserDetails  userDetails = myUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         String jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
