@@ -1,5 +1,6 @@
 package com.company.springbootsecurityjwt.service;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,13 @@ import java.util.ArrayList;
 public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return new User("foo", "foo", new ArrayList<>());
+
+        User dbUser =  new User("foo", "foo", new ArrayList<>());
+
+        if(!dbUser.getUsername().equals(userName)) {
+            throw new BadCredentialsException("Username is incorrect");
+        }
+
+        return dbUser;
     }
 }
